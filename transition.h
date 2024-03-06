@@ -7,11 +7,12 @@
 #include "place.h"
 
 // Transition:
-template<unsigned int N = 1, unsigned int M = 1>
+template<unsigned int N = 1, unsigned int M = 1, unsigned int L = 0>
 SC_MODULE(transition)
 {
     public:
 
+    sc_port<placeInterface, L, SC_ZERO_OR_MORE_BOUND> inhibitors;
     sc_port<placeInterface, N, SC_ALL_BOUND> in;    
     sc_port<placeInterface, M, SC_ALL_BOUND> out;    
 
@@ -38,6 +39,16 @@ SC_MODULE(transition)
         for(int i = 0; i<in.size(); i++)
         {
             if(in[i]->testTokens() == false)
+            {
+                std::cout << this->name() << ": NOT Fired" << std::endl;
+                return;
+            }
+        }
+
+        // check if there are any tokens in inhibitors 
+        for(int i = 0; i<inhibitors.size(); i++)
+        {
+            if(inhibitors[i]->testTokens() == true)
             {
                 std::cout << this->name() << ": NOT Fired" << std::endl;
                 return;
