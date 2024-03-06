@@ -37,7 +37,7 @@ SC_MODULE(transition)
         // check if inputs have enough tokens
         for(int i = 0; i<in.size(); i++)
         {
-            if(in[i]->testTokens() == 0)
+            if(in[i]->testTokens() == false)
             {
                 std::cout << this->name() << ": NOT Fired" << std::endl;
                 return;
@@ -47,13 +47,13 @@ SC_MODULE(transition)
         // consume tokens
         for(int i = 0; i<in.size(); i++)
         {
-            in[i]->removeTokens(1);
+            in[i]->removeTokens();
         }
 
         // prodice tokens
         for(int i = 0; i<out.size(); i++)
         {
-            out[i]->addTokens(1);
+            out[i]->addTokens();
         }
 
         std::cout << this->name() << ": Fired" << std::endl;

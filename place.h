@@ -9,13 +9,14 @@ class placeInterface : public sc_interface
 {
     public: 
 
-    virtual void addTokens(unsigned int n) = 0;
-    virtual void removeTokens(unsigned int n) = 0;
-    virtual unsigned int testTokens() = 0;
+    virtual void addTokens() = 0;
+    virtual void removeTokens() = 0;
+    virtual bool testTokens() = 0;
 };
 
 // Place Channel:
 
+template<unsigned int Win = 1, unsigned int Wout = 1>
 class place : public placeInterface
 {
     private : 
@@ -30,19 +31,19 @@ class place : public placeInterface
         this->tokens = tokens;
     }
 
-    void addTokens(unsigned int n)
+    void addTokens()
     {
-        this->tokens += n;
+        this->tokens += Win;
     }
 
-    void removeTokens(unsigned int n)
+    void removeTokens()
     {   
-        this->tokens -= n;
+        this->tokens -= Wout;
     }
 
-    unsigned int testTokens()
+    bool testTokens()
     {
-        return this->tokens;
+        return this->tokens >= Wout;
     }
 };
 

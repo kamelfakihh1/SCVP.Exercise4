@@ -12,7 +12,7 @@ SC_MODULE(toplevel)
     transition<1, 2> t1; 
     transition<2, 1> t2; 
     transition<1, 1> t3;
-    place p1, p2, p3, p4;
+    place<1,1> p1, p2, p3, p4;
 
     public : 
 
